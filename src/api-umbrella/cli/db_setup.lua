@@ -6,12 +6,16 @@ local pg_utils = require "api-umbrella.utils.pg_utils"
 local readfile = require("pl.utils").readfile
 local xpcall_error_handler = require "api-umbrella.utils.xpcall_error_handler"
 
-return function()
+return function(args)
   local database = pg_utils.db_config["database"]
 
   pg_utils.db_config["database"] = "postgres"
   pg_utils.db_config["user"] = os.getenv("DB_USERNAME")
   pg_utils.db_config["password"] = os.getenv("DB_PASSWORD")
+
+  if args and args.reset then
+    pg_utils.query("DROP DATABASE IF EXISTS :database", { database = pg_utils.identifier(database) }, { verbose = true, fatal = true })
+  end
 
   local result = pg_utils.query("SELECT 1 FROM pg_catalog.pg_database WHERE datname = :database", { database = database }, { verbose = true, fatal = true })
   if not result[1] then
