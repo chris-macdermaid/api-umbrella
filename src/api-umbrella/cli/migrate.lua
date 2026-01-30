@@ -63,6 +63,9 @@ return function()
     local removing_comments = true
     for _, line in ipairs(lines) do
       if not removing_comments or (line ~= "" and not startswith(line, "--")) then
+        if startswith(line, "CREATE SCHEMA") then
+          line = line:gsub("^CREATE SCHEMA", "CREATE SCHEMA IF NOT EXISTS")
+        end
         if startswith(line, "COMMENT ON EXTENSION") then
           line = "-- " .. line
         end

@@ -10,4 +10,17 @@ rm -f /tmp/.s.PGSQL.*
 rm -f /var/log/api-umbrella/trafficserver/error.log
 
 make
+
+# Wait for PostgreSQL to be ready before running database setup.
+echo "Waiting for PostgreSQL to be ready..."
+until PGPASSWORD=dev_password psql -h postgres -U postgres -c '\q' 2>/dev/null; do
+  echo "PostgreSQL is unavailable - sleeping"
+  sleep 1
+done
+echo "PostgreSQL is ready"
+
+# Run database setup as postgres superuser to create the database and roles.
+# This is idempotent and safe to run on every startup.
+DB_USERNAME=postgres DB_PASSWORD=dev_password api-umbrella db-setup
+
 api-umbrella run
