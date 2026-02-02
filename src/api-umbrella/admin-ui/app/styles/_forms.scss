@@ -140,9 +140,9 @@ fieldset .table {
   .btn-loading-label {
     display: none;
 
-    .svg-inline--fa:first-child {
-      @extend .mr-2;
-    }
+    // .svg-inline--fa:first-child {
+    //   @extend .mr-2;
+    // }
   }
 
   &.btn-loading {

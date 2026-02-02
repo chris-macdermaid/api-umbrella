@@ -43,10 +43,10 @@
       }
     }
 
-    select.form-control {
-      @extend .custom-select;
-      @extend .custom-select-sm;
-    }
+    // select.form-control {
+    //   @extend .custom-select;
+    //   @extend .custom-select-sm;
+    // }
 
     input[type='number'].form-control,
     input[type='text'].form-control {
