@@ -74,6 +74,18 @@ $ curl -k "https://localhost:8201/echo/post" \
 
 The `-k` flag is needed to accept the self-signed SSL certificate.
 
+### Sample Analytics Data
+
+The development environment seeds sample API request logs so the analytics graphs have data to display. Approximately 60-150 log entries are created, spread across the past 30 days, simulating requests to the `/echo/` endpoints.
+
+To view the analytics:
+
+1. Log in to the admin interface at [https://localhost:8201/admin/](https://localhost:8201/admin/)
+2. Go to **"Analytics"** → **"API Drilldown"** or **"Filter Logs"**
+3. Select a date range that includes the past 30 days
+
+The seeded data includes a mix of successful (200) and error (400/500) responses to demonstrate different analytics views.
+
 ## Directory Structure
 
 A quick overview of some of the relevant directories for development:
