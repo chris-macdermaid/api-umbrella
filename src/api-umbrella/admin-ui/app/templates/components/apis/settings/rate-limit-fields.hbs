@@ -33,10 +33,10 @@
                     <Input @type="text" @value={{rateLimit.durationInUnits}} class="form-control form-control-sm rate-limit-duration-in-units" aria-label="Duration" />
                   </td>
                   <td style="text-align: left;">
-                    <SelectMenu @value={{rateLimit.durationUnits}} @action={{action (mut rateLimit.durationUnits)}} @options={{this.rateLimitDurationUnitOptions}} @inputClass="custom-select custom-select-sm rate-limit-duration-units" />
+                    <SelectMenu @value={{rateLimit.durationUnits}} @action={{action (mut rateLimit.durationUnits)}} @options={{this.rateLimitDurationUnitOptions}} @inputClass="custom-select form-select-sm rate-limit-duration-units" />
                   </td>
                   <td>
-                    <SelectMenu @value={{rateLimit.limitBy}} @action={{action (mut rateLimit.limitBy)}} @options={{this.rateLimitLimitByOptions}} @inputClass="custom-select custom-select-sm rate-limit-limit-by" />
+                    <SelectMenu @value={{rateLimit.limitBy}} @action={{action (mut rateLimit.limitBy)}} @options={{this.rateLimitLimitByOptions}} @inputClass="custom-select form-select-sm rate-limit-limit-by" />
                   </td>
                   <td>
                     <div class="input-group input-group-sm">

@@ -1,6 +1,6 @@
-// a .svg-inline--fa:first-child {
-//   @extend .mr-1;
-// }
+a .svg-inline--fa:first-child {
+  @extend .me-1;
+}
 
 [data-bs-toggle='collapse'].collapsed .fa-caret-down {
   transform: rotate(270deg);
