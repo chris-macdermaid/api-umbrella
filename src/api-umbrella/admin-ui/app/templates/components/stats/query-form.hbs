@@ -3,7 +3,7 @@
     <div class="row">
       <div class="col-sm-4">
         <div class="form-control-plaintext form-control-sm">
-          <button id="filter_toggle" type="button" data-bs-toggle="collapse" data-bs-target="#filters_ui" aria-controls="filters_ui" aria-expanded="true" class="btn btn-link text-decoration-none p-0 m-0"><FaIcon @icon="caret-down" @fixedWidth={{true}} />{{t "Filter Results"}}</button>
+          <button id="filter_toggle" type="button" data-bs-toggle="collapse" data-bs-target="#filters_ui" aria-controls="filters_ui" aria-expanded="true" class="btn btn-link text-decoration-link p-0 m-0"><FaIcon @icon="caret-down" @fixedWidth={{true}} />{{t "Filter Results"}}</button>
         </div>
       </div>
       <div class="col-sm-8 filter-times">
@@ -35,7 +35,7 @@
               </div>
               <div class="col-sm-6 text-right">
                 <div class="form-control-plaintext form-control-sm">
-                  <a href="#" {{action "toggleFilterType" "advanced"}} class="filter-type-toggle text-decoration-none">{{t "Switch to advanced filters"}}</a>
+                  <a href="#" {{action "toggleFilterType" "advanced"}} class="filter-type-toggle text-decoration-link">{{t "Switch to advanced filters"}}</a>
                 </div>
               </div>
             </div>
@@ -50,16 +50,16 @@
               </div>
               <div class="row">
                 <div class="col-sm-6">
-                  <div class="form-control-plaintext form-control-sm text-muted">{{! template-lint-disable no-bare-strings no-triple-curlies }}{{{t "Advanced filters use <a href=\"#query_syntax_help_content\" rel=\"popover\" class=\"text-decoration-none\">Lucene's Query Syntax</a>."}}}</div>
+                  <div class="form-control-plaintext form-control-sm text-muted">{{! template-lint-disable no-bare-strings no-triple-curlies }}{{{t "Advanced filters use <a href=\"#query_syntax_help_content\" rel=\"popover\" class=\"text-decoration-link\">Lucene's Query Syntax</a>."}}}</div>
                 </div>
                 <div class="col-sm-6 text-right">
                   <div class="form-control-plaintext form-control-sm">
-                    <a href="#" {{action "toggleFilterType" "builder"}} class="filter-type-toggle text-decoration-none">{{t "Switch to simple filters"}}</a>
+                    <a href="#" {{action "toggleFilterType" "builder"}} class="filter-type-toggle text-decoration-link">{{t "Switch to simple filters"}}</a>
                   </div>
                 </div>
               </div>
               <div id="query_syntax_help_content" style="display: none;">
-                <p>{{! template-lint-disable no-bare-strings no-triple-curlies }}{{{t "Use <a href=\"http://www.lucenetutorial.com/lucene-query-syntax.html\" target=\"_blank\" class=\"text-decoration-none\">Lucene's query syntax</a> to perform complex queries."}}}</p>
+                <p>{{! template-lint-disable no-bare-strings no-triple-curlies }}{{{t "Use <a href=\"http://www.lucenetutorial.com/lucene-query-syntax.html\" target=\"_blank\" class=\"text-decoration-link\">Lucene's query syntax</a> to perform complex queries."}}}</p>
                 <p>{{t "Example"}}:</p>
                 <pre class="code-block">request_method:"POST" AND response_status:[400 TO *]</pre>
                 <p>{{t "Available Fields"}}:</p>
