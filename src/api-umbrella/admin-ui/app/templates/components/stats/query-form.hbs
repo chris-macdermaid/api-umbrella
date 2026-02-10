@@ -33,7 +33,7 @@
               <div class="col-sm-6">
                 <button class="btn btn-primary btn-sm" type="submit">{{t "Filter"}}</button>
               </div>
-              <div class="col-sm-6 text-right">
+              <div class="col-sm-6 text-end">
                 <div class="form-control-plaintext form-control-sm">
                   <a href="#" {{action "toggleFilterType" "advanced"}} class="filter-type-toggle text-decoration-link">{{t "Switch to advanced filters"}}</a>
                 </div>
@@ -44,9 +44,7 @@
             <div id="search_field">
               <div class="input-group">
                 <input type="text" name="search" class="form-control" placeholder={{t "Advanced filters..."}} value={{this.query.params.search}} aria-label="Advanced filters">
-                <span class="input-group-append">
                   <button class="btn btn-primary" type="submit">{{t "Filter"}}</button>
-                </span>
               </div>
               <div class="row">
                 <div class="col-sm-6">
@@ -54,7 +52,7 @@
                     {{! template-lint-disable no-bare-strings no-triple-curlies }}{{{t "Advanced filters use <a href=\"#query_syntax_help_content\" data-bs-toggle=\"popover\" data-bs-trigger=\"focus\" class=\"text-decoration-link lucene-help-link\">Lucene's Query Syntax</a>."}}}
                   </div>
                 </div>
-                <div class="col-sm-6 text-right">
+                <div class="col-sm-6 text-end">
                   <div class="form-control-plaintext form-control-sm">
                     <a href="#" {{action "toggleFilterType" "builder"}} class="filter-type-toggle text-decoration-link">{{t "Switch to simple filters"}}</a>
                   </div>
