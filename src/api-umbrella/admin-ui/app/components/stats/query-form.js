@@ -8,14 +8,13 @@ import { tagName } from '@ember-decorators/component';
 import { observes } from '@ember-decorators/object';
 import Logs from 'api-umbrella-admin-ui/models/stats/logs';
 import { t } from 'api-umbrella-admin-ui/utils/i18n';
+import Popover from 'bootstrap/js/dist/popover'
 import classic from 'ember-classic-decorator';
 import $ from 'jquery';
 import QueryBuilder from 'jQuery-QueryBuilder';
 import forEach from 'lodash-es/forEach';
 import { marked } from 'marked';
 import moment from 'moment-timezone';
-import Popover from 'bootstrap/js/dist/popover'
-
 
 marked.use({
   gfm: true,
@@ -480,7 +479,7 @@ export default class QueryForm extends Component {
     const helpTriggerLink = document.querySelector('.lucene-help-link');
     const helpContent = document.getElementById('query_syntax_help_content');
 
-    if (helpTriggerLink && helpContent) {
+    if(helpTriggerLink && helpContent) {
       helpTriggerLink.addEventListener('click', (e) => {
         e.preventDefault();
     });
@@ -489,16 +488,17 @@ export default class QueryForm extends Component {
         container: 'body',
         html: true,
         content: helpContent.innerHTML,
-        trigger: 'focus'
+        trigger: 'focus',
     });
   }
 }
 
-  willDestroyElement() {
-    if (this.popoverInstance) {
-      this.popoverInstance.dispose();
-    }
+willDestroy() {
+  if(this.popoverInstance) {
+    this.popoverInstance.dispose();
   }
+  super.willDestroy(...arguments);
+}
 
   // eslint-disable-next-line ember/no-observers
   @observes('query')
