@@ -255,6 +255,26 @@ The following components are compiled during the Docker build process:
 | LuaRocks | 3.13.0 | Lua package manager |
 | Perp | 2.07 | Process supervisor |
 
+#### Dependency Maintenance Concerns
+
+Some dependencies have low maintenance activity. Review these when planning long-term support:
+
+| Package | Status | Last Release | Concern Level | Notes |
+|---------|--------|--------------|---------------|-------|
+| **Perp** | ⚠️ Abandoned | Jan 2013 | Medium | Simple/stable but unmaintained for 12+ years. Consider s6, runit, or container init as alternatives. |
+| **ngx_http_geoip2_module** | ⚠️ Stale | Jun 2022 | Low | Stable, works with current nginx versions |
+| **lua-resty-nettle** | ⚠️ Low activity | Apr 2021 | Low | Cryptography wrapper, stable API |
+| **lua-resty-validation** | ⚠️ Abandoned | Aug 2017 | Medium | 8+ years without updates |
+| **lua-resty-cookie** | 🛑 Archived | 2021 | Medium | Cloudflare archived this repo in Sep 2023 |
+
+**Actively Maintained (Low Risk):**
+- OpenResty, Traffic Server (Apache Foundation), Fluent Bit (CNCF), RE2 (Google), Lapis, Penlight
+
+**Recommendations:**
+1. **Short term**: These older packages work fine and pose low immediate risk
+2. **Medium term**: Monitor for security vulnerabilities in archived packages
+3. **For AWS deployment**: Using RDS and OpenSearch Service eliminates the biggest maintenance concerns (database operations)
+
 #### Alternatives to Consider
 
 If operational complexity is a concern, consider these managed alternatives:
