@@ -42,6 +42,13 @@ ln -snf /app/build/work/tasks/test-deps/bundle/_persist/.bundle /app/.bundle
 mkdir -p /app/src/api-umbrella/admin-ui/tmp
 chmod 1777 /app/src/api-umbrella/admin-ui/tmp
 
+# Create admin-ui dist directory for ember builds
+mkdir -p /app/src/api-umbrella/admin-ui/dist
+chmod 777 /app/src/api-umbrella/admin-ui/dist
+
+# Fix example-website permissions for Hugo builds
+chmod -R 777 /app/src/api-umbrella/example-website 2>/dev/null || true
+
 mkdir -p ~/.config/pnpm
 printf "update-notifier=false\nstore-dir=%s/store\n" "$PNPM_HOME" > ~/.config/pnpm/rc
 

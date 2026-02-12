@@ -9,5 +9,8 @@ rm -f /tmp/.s.PGSQL.*
 # lots of output from previous logs on startup.
 rm -f /var/log/api-umbrella/trafficserver/error.log
 
+# Ensure Makefile exists (needed when fresh volume is mounted)
+./configure
+
 make
 api-umbrella run

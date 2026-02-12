@@ -871,10 +871,11 @@ return {
   end,
 
   [1560888068] = function()
+    -- Use anycompatiblearray instead of anyarray for PostgreSQL 14+ compatibility
     db.query([[
-      CREATE AGGREGATE array_accum (anyarray) (
+      CREATE AGGREGATE array_accum (anycompatiblearray) (
         sfunc = array_cat,
-        stype = anyarray,
+        stype = anycompatiblearray,
         initcond = '{}'
       )
     ]])
