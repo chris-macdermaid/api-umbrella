@@ -255,6 +255,13 @@ The following components are compiled during the Docker build process:
 | LuaRocks | 3.13.0 | Lua package manager |
 | Perp | 2.07 | Process supervisor |
 
+#### Frontend Build Dependencies
+
+| Package | In Use | Latest | Status | Notes |
+|---------|--------|--------|--------|-------|
+| **Ember.js** | 4.12.x | 6.10.0 | ⚠️ 2 major versions behind | Admin UI framework. Upgrade path exists but requires migration effort. |
+| **Hugo** | 0.153.5 | 0.155.3 | ✅ Current | Example website generator. Trivial to update. |
+
 #### Dependency Maintenance Concerns
 
 Some dependencies have low maintenance activity. Review these when planning long-term support:
