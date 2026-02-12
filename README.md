@@ -151,6 +151,123 @@ curl -sk -X POST "https://localhost:8201/api-umbrella/v1/apis" \
 
 ---
 
+## Architecture & Operations Guide
+
+This section provides an overview of API Umbrella's architecture for developers and operators planning production deployments.
+
+### Architecture Overview
+
+```
+┌─────────────────────────────────────────────────────────────────┐
+│                    API Umbrella Container                        │
+│                                                                  │
+│  ┌──────────────┐  ┌───────────────────┐  ┌──────────────────┐ │
+│  │    NGINX     │→ │  Traffic Server   │→ │  Backend APIs    │ │
+│  │  (Frontend)  │  │  (Caching Proxy)  │  │  (Your Services) │ │
+│  └──────────────┘  └───────────────────┘  └──────────────────┘ │
+│         ↓                                                        │
+│  ┌──────────────┐  ┌───────────────────┐                        │
+│  │    Envoy     │  │   Fluent Bit      │                        │
+│  │   (Egress)   │  │   (Log Shipper)   │                        │
+│  └──────────────┘  └───────────────────┘                        │
+│         ↓                   ↓                                    │
+│  ┌──────────────┐                                               │
+│  │    Perp      │ ← Process Supervisor (manages all services)   │
+│  └──────────────┘                                               │
+└─────────────────────────────────────────────────────────────────┘
+           ↓                        ↓
+    ┌─────────────┐          ┌─────────────┐
+    │  PostgreSQL │          │ OpenSearch  │
+    │             │          │             │
+    │ • Users     │          │ • Analytics │
+    │ • API Keys  │          │ • Logs      │
+    │ • Config    │          │ • Metrics   │
+    └─────────────┘          └─────────────┘
+```
+
+### Component Summary
+
+| Component | Purpose | Built From Source? |
+|-----------|---------|-------------------|
+| **NGINX/OpenResty** | Request routing, Lua scripting, SSL termination | Yes (with LuaJIT) |
+| **Traffic Server** | HTTP caching proxy | Yes |
+| **Envoy** | Egress proxy | No (binary download) |
+| **Fluent Bit** | Log shipping to OpenSearch | Yes |
+| **Perp** | Process supervisor | Yes |
+| **LuaRocks packages** | Application logic dependencies | Some have C extensions |
+| **PostgreSQL** | Config, users, API keys storage | External service |
+| **OpenSearch** | Analytics & logging | External service |
+
+### AWS Production Deployment
+
+API Umbrella can be deployed on AWS using managed services for the data stores:
+
+**Recommended AWS Services:**
+- **Amazon RDS PostgreSQL** - For configuration, users, and API keys
+- **Amazon OpenSearch Service** - For analytics and logging
+- **Amazon ECS/Fargate** - For running the API Umbrella container
+
+**Sample Configuration for AWS:**
+
+```yaml
+postgresql:
+  host: "your-rds-endpoint.region.rds.amazonaws.com"
+  port: 5432
+  database: "api_umbrella"
+  username: "api_umbrella_app"
+  password: "your-password"
+  ssl: true
+  ssl_verify: true
+  ssl_required: true
+
+opensearch:
+  hosts:
+    - "https://your-opensearch-domain.region.es.amazonaws.com"
+  index_name_prefix: "api-umbrella"
+```
+
+### Operations & Maintenance
+
+#### What AWS Manages
+- **RDS PostgreSQL**: Backups, patches, high availability, monitoring
+- **OpenSearch Service**: Cluster management, patches, scaling
+
+#### What You Must Manage
+
+| Task | Frequency | Description |
+|------|-----------|-------------|
+| Security patches | Monthly | Rebuild container when OpenResty, Traffic Server, or Fluent Bit release security updates |
+| Dependency updates | Quarterly | Review LuaRocks dependencies for CVEs |
+| Container deployments | As needed | CI/CD pipeline for updates |
+| Configuration changes | As needed | Update YAML config, restart services |
+| SSL certificate rotation | Annually | Standard certificate management |
+| Monitoring & alerting | Ongoing | CloudWatch metrics and alarms |
+
+#### Build Dependencies Compiled From Source
+
+The following components are compiled during the Docker build process:
+
+| Package | Current Version | Notes |
+|---------|-----------------|-------|
+| OpenResty | 1.27.1.2 | Includes LuaJIT and nginx modules |
+| Traffic Server | 10.1.0 | Apache HTTP caching proxy |
+| Fluent Bit | 4.2.2 | Log processor and shipper |
+| LuaRocks | 3.13.0 | Lua package manager |
+| Perp | 2.07 | Process supervisor |
+
+#### Alternatives to Consider
+
+If operational complexity is a concern, consider these managed alternatives:
+
+| Alternative | Trade-offs |
+|-------------|------------|
+| **AWS API Gateway** | Fully managed, less flexible, pay-per-request pricing |
+| **Kong (Enterprise)** | Similar complexity but commercial support available |
+| **Apigee** | Fully managed, higher cost |
+| **Cloudflare API Shield** | Managed edge solution, less customizable |
+
+---
+
 ## Who's using API Umbrella?
 
 * [api.data.gov](https://api.data.gov/)
