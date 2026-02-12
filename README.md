@@ -159,18 +159,18 @@ This section provides an overview of API Umbrella's architecture for developers 
 
 ```
 ┌─────────────────────────────────────────────────────────────────┐
-│                    API Umbrella Container                        │
-│                                                                  │
-│  ┌──────────────┐  ┌───────────────────┐  ┌──────────────────┐ │
-│  │    NGINX     │→ │  Traffic Server   │→ │  Backend APIs    │ │
-│  │  (Frontend)  │  │  (Caching Proxy)  │  │  (Your Services) │ │
-│  └──────────────┘  └───────────────────┘  └──────────────────┘ │
-│         ↓                                                        │
+│                    API Umbrella Container                       │
+│                                                                 │
+│  ┌──────────────┐  ┌───────────────────┐  ┌──────────────────┐  │
+│  │    NGINX     │→ │  Traffic Server   │→ │  Backend APIs    │  │
+│  │  (Frontend)  │  │  (Caching Proxy)  │  │  (Your Services) │  │
+│  └──────────────┘  └───────────────────┘  └──────────────────┘  │
+│         ↓                                                       │
 │  ┌──────────────┐  ┌───────────────────┐                        │
 │  │    Envoy     │  │   Fluent Bit      │                        │
 │  │   (Egress)   │  │   (Log Shipper)   │                        │
 │  └──────────────┘  └───────────────────┘                        │
-│         ↓                   ↓                                    │
+│         ↓                   ↓                                   │
 │  ┌──────────────┐                                               │
 │  │    Perp      │ ← Process Supervisor (manages all services)   │
 │  └──────────────┘                                               │
